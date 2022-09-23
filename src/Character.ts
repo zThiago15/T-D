@@ -55,7 +55,10 @@ class Character implements Fighter {
   }
 
   get energy(): Energy {
-    return this._energy;
+    return {
+      type_: this._energy.type_,
+      amount: this._energy.amount,
+    };
   }
 
   checkLifePoints() {
@@ -65,11 +68,12 @@ class Character implements Fighter {
   }
 
   receiveDamage(attackPoints: number): number {
-    this._defense -= attackPoints;
-    if (attackPoints > 0) {
+    const damage = attackPoints - this._defense;
+
+    if (damage > 0) {
       this._lifePoints -= attackPoints;
-      this.checkLifePoints();
     }
+    this.checkLifePoints();
 
     return this._lifePoints;
   }
@@ -84,10 +88,12 @@ class Character implements Fighter {
     this._dexterity += getRandomInt(1, 10);
     this._defense += getRandomInt(1, 10);
     this._energy.amount = 10;
-
+    
     if (this._maxLifePoints > this._race.maxLifePoints) {
       this._maxLifePoints = this._race.maxLifePoints;
     }
+
+    this._lifePoints = this._maxLifePoints;
   }
 }
 
