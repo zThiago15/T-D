@@ -17,8 +17,6 @@ export default class PVP extends Battle {
       p1.attack(this.player2);
       p2.attack(this.player1);
     }
-    // const loser = p1.lifePoints === -1 ? p1.lifePoints : p2.lifePoints;
-
     return super.fight();
   }
 }
