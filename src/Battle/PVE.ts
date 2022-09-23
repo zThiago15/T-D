@@ -4,7 +4,7 @@ import Battle from './Battle';
 export default class PVE extends Battle {
   constructor(
     private character: Fighter, 
-    private monsters: SimpleFighter[],
+    private monsters: Array<Fighter | SimpleFighter>,
   ) {
     super(character);
   }
@@ -13,10 +13,8 @@ export default class PVE extends Battle {
     const ch = this.character;
     const mons = this.monsters;
 
-    const monstersVerification = mons
-      .some((monster) => monster.lifePoints !== -1);
-    
-    while (ch.lifePoints !== -1 && monstersVerification) {
+    while (ch.lifePoints !== -1 && mons
+      .some((monster) => monster.lifePoints !== -1)) {
       mons.map((monster) => {
         ch.attack(monster);
         monster.attack(ch);
